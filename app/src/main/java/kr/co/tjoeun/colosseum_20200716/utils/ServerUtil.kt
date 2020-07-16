@@ -24,7 +24,7 @@ class ServerUtil {
         fun postRequestLogin(context : Context, email: String, pw:String,emahandeler: JsonResponseHandler?) {
 
             //서버 통신 담당 변수 (클라이언트 역할 수행 변수)
-            val client = okHttpClient()
+            val client = OkHttpClient()
 
             //어느 주소로 가야하는지 저장 (로그인은 http://15.165.177.142/user로 가야함)
             val urlString = "${BASE_URL}/user"
