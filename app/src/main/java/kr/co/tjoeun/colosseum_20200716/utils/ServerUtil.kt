@@ -1,6 +1,7 @@
 package kr.co.tjoeun.colosseum_20200716.utils
 
 import android.content.Context
+import android.util.Log
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -21,7 +22,7 @@ class ServerUtil {
 
         //로그인 API를 호출해주는 기능  (mContext아님/ ~Handler? = null이 담길수도 있는 가능성을 열어둠)
         //1. 화면에서 어떤 데이터를 받아와야 하는지? email, pw (함수의 재료로)
-        fun postRequestLogin(context : Context, email: String, pw:String,emahandeler: JsonResponseHandler?) {
+        fun postRequestLogin(context : Context, email: String, pw:String, handeler: JsonResponseHandler?) {
 
             //서버 통신 담당 변수 (클라이언트 역할 수행 변수)
             val client = OkHttpClient()
@@ -56,6 +57,19 @@ class ServerUtil {
 
                 override fun onResponse(call: Call, response: Response) {
                    //연결은 성공해서, 서버가 응답을 내려줬을 때 실행됨.(아직 로그인 성공/실패가 아님)
+                    
+                    //실제로 서버가 내려준 응답 내용을 변수로 저장. (응답내용 = body)
+                    val bodyStr = response.body?.string() //그냥 string(), body는 null일수도 있음
+                    
+                    //응답 내용으로 Json 객체 생성
+                    val json = JSONObject(bodyStr)
+                    
+                    //서버에서 최종적으로 가져온 내용을 로그로 출력해보기
+                    Log.d("서버 응답 내용", json.toString())
+                    
+                    //handler 변수에 응답처리 코드가 들어있다면 실행해주자.
+                    handeler?.onResponse(json) //handler? -> 핸들러가 null이 아닐때만 실행
+                    
                 }
 
             })
