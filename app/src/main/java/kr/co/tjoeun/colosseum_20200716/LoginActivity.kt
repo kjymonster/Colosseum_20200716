@@ -3,14 +3,14 @@ package kr.co.tjoeun.colosseum_20200716
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_login.*
 import kr.co.tjoeun.colosseum_20200716.utils.ServerUtil
 import org.json.JSONObject
 
-class MainActivity : BaseActivity() {
+class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         setupEvents()
         setValues()
     }
@@ -45,6 +45,7 @@ class MainActivity : BaseActivity() {
                             //어떤 이유로 실패했는지 서버가 주는 메세지를 출력
 
                             runOnUiThread {
+                                Toast.makeText(mContext, reasonFail, Toast.LENGTH_SHORT).show()
                                 Toast.makeText(mContext, reasonFail, Toast.LENGTH_SHORT).show()
                             }
 
