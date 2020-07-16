@@ -11,8 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="150dp"
@@ -22,24 +22,24 @@
 
     </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="아이디"
-            android:layout_marginTop="15dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="아이디" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:hint="이메일 양식으로 적어주세요."
-        android:inputType="textEmailAddress"
-        android:layout_marginTop="5dp"/>
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="비밀번호"
-        android:layout_marginTop="15dp"/>
+        android:layout_marginTop="15dp"
+        android:text="비밀번호" />
 
     <EditText
         android:layout_width="match_parent"
@@ -50,11 +50,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="로그인"
-        android:layout_marginTop="20dp"/>
-
-
-
+        android:layout_marginTop="20dp"
+        android:text="로그인" />
 
 
 </LinearLayout>
