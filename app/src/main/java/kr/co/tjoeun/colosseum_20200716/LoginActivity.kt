@@ -46,7 +46,16 @@ class LoginActivity : BaseActivity() {
                         val reasonFail = json.getString("message")
 
                         if (codeNum == 200) {
-                            //로그인 성공
+                            //로그인 성공 -> 서버가 알려주는 토큰을 반영구 저장.
+
+                            //json 안의 data 안의 token 스트링 추출 과정
+                            val data = json.getJSONObject("data") //중괄호를 추출할때 : getJSONObject
+                            val token = data.getString("token") //미리 만든 data 변수의 String 가져오기.
+
+                            //얻어낸 토큰을 저장.
+
+
+
                         } else {
                             //로그인 실패 -> 토스트로 실패했다고 출력
                             //어떤 이유로 실패했는지 서버가 주는 메세지를 출력
