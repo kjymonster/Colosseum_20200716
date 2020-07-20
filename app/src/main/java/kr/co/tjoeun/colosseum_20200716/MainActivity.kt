@@ -2,8 +2,16 @@ package kr.co.tjoeun.colosseum_20200716
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kr.co.tjoeun.colosseum_20200716.datas.Topic
+import kr.co.tjoeun.colosseum_20200716.utils.ServerUtil
+import org.json.JSONObject
+import java.util.ArrayList
 
 class MainActivity : BaseActivity(){
+
+    val mTopicList = ArrayList<Topic>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -16,7 +24,16 @@ class MainActivity : BaseActivity(){
     }
 
     override fun setValues() {
+        getTopicListFromServer()
+    }
 
+    fun getTopicListFromServer(){  //너무 길어서 setValues밖에서 작업
+        ServerUtil.getRequestMainInfo(mContext,object :ServerUtil.JsonResponseHandler{
+            override fun onResponse(json: JSONObject) {
+
+            }
+
+        })
     }
 
 
