@@ -28,7 +28,7 @@ class ContextUtil {
         fun getLoginUserToken(context: Context) : String{
             //메모장 열기(상동)
             val pref = context.getSharedPreferences(preName,Context.MODE_PRIVATE)
-            return pref.getString(LOGIN_USER_TOKEN, "") !!
+            return pref.getString(LOGIN_USER_TOKEN, "") !! // (, " " = 저장된게 없으면 줄 값) + !!
         }
 
 
