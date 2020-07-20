@@ -14,7 +14,7 @@ class TopicAdapter(val mContext:Context,
     val inf = LayoutInflater.from(mContext)
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val tempRow = convertView
+        var tempRow = convertView
         if(tempRow == null){
             tempRow = inf.inflate(R.layout.topic_list_item, null)
         }
