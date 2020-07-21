@@ -46,14 +46,19 @@ class ViewTopicDetailActivity : BaseActivity() {
             val clickedSide = mTopic.sideList[clickedSideTag.toInt()]
 
             Log.d(" 투표하려는 진영 제목",clickedSide.title)
+
+            //실제로 해당 진영에 투표하기
+            ServerUtil.postRequestVote(mContext,clickedSide.id, object : ServerUtil.JsonResponseHandler{
+                override fun onResponse(json: JSONObject) {
+
+                }
+
+            })
         }
 
         //두 개의 투표하기 버튼이 눌리면 할 일을 모두 voteCode에 적힌 내용으로 설정.
         voteToFirstSideBtn.setOnClickListener(voteCode)  //이 버튼이 눌리면 할일은 voteCode에 있다.
         voteToSecondSideBtn.setOnClickListener(voteCode)
-
-
-
 
         }
 
