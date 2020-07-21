@@ -7,9 +7,14 @@ class Topic {
     var title = "" //빈칸으로 둬서 String이 될것이라고 암시
     var imageUrl = ""
 
-    //json 한 덩어리를 넣으면 => Topic 객체로 변환해주는 기능
+    //data폴더에 Side 만들고 와서.
+    //주제는 선택 진영 목록을 하위 정보로 갖는다.
+    val sideList = ArrayList<Side>()
+
+
 
     companion object {
+        //json 한 덩어리를 넣으면 => Topic 객체로 변환해주는 기능
         fun getTopicFromJson(json: JSONObject): Topic {
 
             //변환시켜줄 Topic객체를 미리 생성
@@ -19,6 +24,22 @@ class Topic {
             topic.id = json.getInt("id") //json에서 "id"라는 이름의 Int 가져오기
             topic.title = json.getString("title") //json에서 "title"이라는 이름의 String 가져오기
             topic.imageUrl = json.getString("img_url") //json에서 img_url"이라는 이름의 String 가져오기
+            //side 작업 후.
+            //sides 배열에 들어있는 진영 선택 정보도 넣어줘야함.
+            val sides = json.getJSONArray("sides")
+
+            //받아낸 jsonArray 내부를 스캔
+            for(i in 0 until sides.length()){
+
+                //진영 정보를 하나씩 파싱해서 -> 토론의 진영 목록에 추가
+                val sideObj = sides.getJSONObject(i)
+                val side = Side.getSideFromJson(sideObj)
+
+                topic.sideList.add(side)
+
+
+            }
+
 
             //완성된 객체를 리턴.
             return topic
