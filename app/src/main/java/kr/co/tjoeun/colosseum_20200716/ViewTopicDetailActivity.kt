@@ -42,7 +42,17 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         //(0722) 의견 등록하기 누르면 작성 화면으로 이동
         postReplyBtn.setOnClickListener {
+
+            //투표를 아직 안한 상태라면, 작성 화면 진입을 거부 (투표먼저 시키자)
+            if(mTopic.mysideId == -1){
+                //True = 투표를 안한 상태
+                Toast.makeText(mContext,"투표를 해야만 의견을 작성할 수 있습니다.",Toast.LENGTH_SHORT).show()
+                return@setOnClickListener  //화면 강제 종료
+            }
+
             val myIntent = Intent(mContext, EditReplyActivity::class.java)
+            myIntent.putExtra("topicTitle", mTopic.title)
+            myIntent.putExtra("selectedSideTitle",mTopic.mySide!!.title) //mySide 는 null이 될 가능성을 제거
             startActivity(myIntent)
         }
 
