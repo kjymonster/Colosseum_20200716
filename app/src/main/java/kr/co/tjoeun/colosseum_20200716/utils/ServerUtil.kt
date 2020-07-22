@@ -93,8 +93,8 @@ class ServerUtil {
             //urlBuilder에 필요한 파라미터를 첨부하면 됨.
 
             //(07/21) 아직 처리 하지 않을 예정이므로 주석 처리
-            //urlBuilder.addEncodedQueryParameter("device_token", "TEST기기토큰")
-            //urlBuilder.addEncodedQueryParameter("os", "Android") //내가 쓰는 폰이 안드로이드이다.
+            urlBuilder.addEncodedQueryParameter("order_type", "NEW")
+            urlBuilder.addEncodedQueryParameter("page_num", "1")
 
             // 모든 데이터가 담겼으면 주소를 완성해서 String으로 저장
             val urlString = urlBuilder.build().toString() //다 만들었다.
