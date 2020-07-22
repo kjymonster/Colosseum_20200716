@@ -92,7 +92,7 @@ class ServerUtil {
 
             //urlBuilder에 필요한 파라미터를 첨부하면 됨.
 
-            //(07/21) 아직 처리 하지 않을 예정이므로 주석 처리
+
             urlBuilder.addEncodedQueryParameter("order_type", "NEW")
             urlBuilder.addEncodedQueryParameter("page_num", "1")
 
