@@ -11,6 +11,11 @@ class Topic {
     //주제는 선택 진영 목록을 하위 정보로 갖는다.
     val sideList = ArrayList<Side>()
 
+    // (0722) 내가 투표한 진영의 id와 데이터를 저장해주자.
+    var mysideId = -1
+    var mySide : Side? = null //내가 투표한 진영은 없을 수도(null) 있다. (null이 가능하도록)
+
+
 
 
     companion object {
@@ -37,6 +42,16 @@ class Topic {
 
                 topic.sideList.add(side)
 
+
+            }
+
+            //내가 선택한 진영 관련 정보 파싱
+            topic.mysideId = json.getInt("my_side_id")
+            //서버에서 my_side에 진영 정보를 넣어줄때만 파싱. (if문 활용)
+            if(!json.isNull("my_side")) {  //! = NOT 연산자
+
+                val mySideJson = json.getJSONObject("my_side")
+                topic.mySide = Side.getSideFromJson(mySideJson)
 
             }
 
