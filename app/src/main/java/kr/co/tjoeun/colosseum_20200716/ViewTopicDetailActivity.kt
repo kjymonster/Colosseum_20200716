@@ -25,6 +25,9 @@ class ViewTopicDetailActivity : BaseActivity() {
     //토론주제를 받아올때 딸려오는 의견 목록을 담아줄 배열
     val mReplyList = ArrayList<Reply>()
 
+    //실제 목록을 뿌려줄 어댑터
+    lateinit var mReplyAdapter : ReplyAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_topic_detail)
@@ -102,6 +105,10 @@ class ViewTopicDetailActivity : BaseActivity() {
 
         //무사히 넘어왔다면, 서버에서 토론 주제에 대한 상제 진행 상황을 가져오기
         getTopicDetailFromServer() //코드가 길어서 따로 작업.
+
+        //어댑터 초기화 -> 리스트뷰와 연결
+        mReplyAdapter = ReplyAdapter(mContext,R.layout.reply_list_item, mReplyList)
+        replyListView.adapter = mReplyAdapter
     }
 
     fun getTopicDetailFromServer() {
@@ -123,8 +130,11 @@ class ViewTopicDetailActivity : BaseActivity() {
 
                     //화면에 토론에 관련한 정보를 표시
                     runOnUiThread {
+
                         setTopicDataToUi()
 
+                        //댓글목록을 불러왔다고 리스트뷰 어댑터에게 알림
+                        mReplyAdapter.notifyDataSetChanged()
 
 
                     }
