@@ -15,8 +15,34 @@ class Topic {
     var mysideId = -1
     var mySide : Side? = null //내가 투표한 진영은 없을 수도(null) 있다. (null이 가능하도록)
 
+        //토론의 내 선택 진영이 몇번째인지? 표현 가능
+        // 투표를 안했으면 -1, 그외 : 0번째 or 1번째 등.
+    fun getMySideIndex() : Int {
+
+            //내 투표와 같은 진영이 발견된 위치
+            //일단 -1로 해서 발견이 안되었다고 전제.
+            var foundIndex = -1
+
+            //투표를 안했다면, 그냥 -1을 그대로 리턴.
+            if(this.mysideId == -1) {
+                return foundIndex   //-1 그대로 리턴
+            }
+
+            //진영 목록을 전부 돌면서 같은 내 투표와 같은 진영을 찾자.
+            // i가 0부터 ~ 배열의 길이만큼 반복
+            for (i in this.sideList.indices){
+
+                //내 진영의 id와 선택가능한 진영의 id를 비교
+                if(this.mysideId == this.sideList[i].id){
+                    //같은 진영이 발견된 위치를 기록
+                    foundIndex = i
+                }
+
+            }
 
 
+            return foundIndex
+        }
 
     companion object {
         //json 한 덩어리를 넣으면 => Topic 객체로 변환해주는 기능
