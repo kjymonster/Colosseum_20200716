@@ -51,6 +51,19 @@ class ViewTopicDetailActivity : BaseActivity() {
             ServerUtil.postRequestVote(mContext,clickedSide.id, object : ServerUtil.JsonResponseHandler{
                 override fun onResponse(json: JSONObject) {
 
+                    //서버는 변경된 결과가 어떻게 되는지 다시 내려줌.
+                    //이 응답에서, 토론 진행현황을 다시 파싱해서 화면에 반영
+                    val data = json.getJSONObject("data")
+                    val topic = data.getJSONObject("topic")
+
+                    //멤버변수로 있는 토픽을 갈아주자.
+                    mTopic = Topic.getTopicFromJson(topic)
+
+                    //화면에 mTopic의 데이터를 이용해서 반영
+                    runOnUiThread{
+                        setTopicDataToUi()
+                    }
+
                 }
 
             })
@@ -96,17 +109,8 @@ class ViewTopicDetailActivity : BaseActivity() {
 
                     //화면에 토론에 관련한 정보를 표시
                     runOnUiThread {
+                        setTopicDataToUi()
 
-                        topicTitleTxt.text = mTopic.title
-                        Glide.with(mContext).load(mTopic.imageUrl).into(topicImg)
-
-                        //data - Side - Topic에 작업 완료 후
-                        //진영 정보도 같이 표시
-                        firstSideTitleTxt.text = mTopic.sideList[0].title
-                        secondSideTitleTxt.text = mTopic.sideList[1].title
-
-                        firstSideVoteCountTxt.text = "${mTopic.sideList[0].voteCount}표"
-                        secondSideVoteCountTxt.text = "${mTopic.sideList[1].voteCount}표"
 
 
                     }
@@ -114,6 +118,20 @@ class ViewTopicDetailActivity : BaseActivity() {
                 }
             })
 
+    }
+
+    // 7/22 화면에 mTopic을 기반으로 데이터 반영해주는 기능 (나중에 호출만 할 수 있게)
+    fun setTopicDataToUi(){
+        topicTitleTxt.text = mTopic.title
+        Glide.with(mContext).load(mTopic.imageUrl).into(topicImg)
+
+        //data - Side - Topic에 작업 완료 후
+        //진영 정보도 같이 표시
+        firstSideTitleTxt.text = mTopic.sideList[0].title
+        secondSideTitleTxt.text = mTopic.sideList[1].title
+
+        firstSideVoteCountTxt.text = "${mTopic.sideList[0].voteCount}표"
+        secondSideVoteCountTxt.text = "${mTopic.sideList[1].voteCount}표"
     }
 
 }
