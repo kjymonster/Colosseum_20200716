@@ -23,7 +23,7 @@ class EditReplyActivity :BaseActivity() {
     override fun setValues() {
 
         topicTitleTxt.text = intent.getStringExtra("topicTitle")
-        mySideTitleTxt.text = intent.getStringExtra("selectedsideTitle")
+        mySideTitleTxt.text = intent.getStringExtra("selectedSideTitle")
 
     }
 
