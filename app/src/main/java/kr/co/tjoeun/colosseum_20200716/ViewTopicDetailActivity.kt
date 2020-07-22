@@ -59,16 +59,16 @@ class ViewTopicDetailActivity : BaseActivity() {
                     //서버는 변경된 결과가 어떻게 되는지 다시 내려줌.
                     //이 응답에서, 토론 진행현황을 다시 파싱해서 화면에 반영
                     val data = json.getJSONObject("data")
-                    val topic = data.getJSONObject("topic")
+                    val topicObj = data.getJSONObject("topic")
 
                     //멤버변수로 있는 토픽을 갈아주자.
-                    mTopic = Topic.getTopicFromJson(topic)
+                    mTopic = Topic.getTopicFromJson(topicObj)
 
                     //같이 불러오는 의견 목록을 파싱해서 배열에 담자.
                     val replies = topicObj.getJSONArray("replies")
 
                     //JSONArray를 하나씩 돌면서 Reply형태로 바꿔서 목록에 추가
-                    for (i in 0 until replies.lenth()){
+                    for (i in 0 until replies.length()){
                         mReplyList.add(Reply.getReplyFromJson(replies.getJSONObject(i)))
                     }
 
