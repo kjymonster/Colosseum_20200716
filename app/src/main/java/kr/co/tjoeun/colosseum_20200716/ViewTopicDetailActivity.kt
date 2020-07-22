@@ -67,13 +67,7 @@ class ViewTopicDetailActivity : BaseActivity() {
                     //멤버변수로 있는 토픽을 갈아주자.
                     mTopic = Topic.getTopicFromJson(topicObj)
 
-                    //같이 불러오는 의견 목록을 파싱해서 배열에 담자.
-                    val replies = topicObj.getJSONArray("replies")
 
-                    //JSONArray를 하나씩 돌면서 Reply형태로 바꿔서 목록에 추가
-                    for (i in 0 until replies.length()){
-                        mReplyList.add(Reply.getReplyFromJson(replies.getJSONObject(i)))
-                    }
 
 
                     //화면에 mTopic의 데이터를 이용해서 반영
@@ -127,6 +121,14 @@ class ViewTopicDetailActivity : BaseActivity() {
                     // (상단에 멤버변수 생성  lateinit var mTopic : Topic)
 
                     mTopic = Topic.getTopicFromJson(topicObj)
+
+                    //같이 불러오는 의견 목록을 파싱해서 배열에 담자.
+                    val replies = topicObj.getJSONArray("replies")
+
+                    //JSONArray를 하나씩 돌면서 Reply형태로 바꿔서 목록에 추가
+                    for (i in 0 until replies.length()){
+                        mReplyList.add(Reply.getReplyFromJson(replies.getJSONObject(i)))
+                    }
 
                     //화면에 토론에 관련한 정보를 표시
                     runOnUiThread {
