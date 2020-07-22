@@ -26,7 +26,7 @@ class ViewTopicDetailActivity : BaseActivity() {
     val mReplyList = ArrayList<Reply>()
 
     //실제 목록을 뿌려줄 어댑터
-    lateinit var mReplyAdapter : ReplyAdapter
+    lateinit var mReplyAdapter: ReplyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,12 @@ class ViewTopicDetailActivity : BaseActivity() {
         //투표 버튼까지 만들었으면 여기서 작업.
         //버튼이 눌리면 할 일을 변수에 담아서 저장.
         // (TedPermission에서 권한별 할 일을 변수에 담아서 저장한 것과 같은 논리)
+
+        //(0722) 의견 등록하기 누르면 작성 화면으로 이동
+        postReplyBtn.setOnClickListener {
+            val myIntent = Intent(mContext, EditReplyActivity::class.java)
+            startActivity(myIntent)
+        }
 
 
         //투표를 하는 코드라는 의미에서 voteCode
@@ -53,39 +59,39 @@ class ViewTopicDetailActivity : BaseActivity() {
             // 토론 주제의 진영 중 어떤 진영을 눌렀는지 가져오는 index로 활용
             val clickedSide = mTopic.sideList[clickedSideTag.toInt()]
 
-            Log.d(" 투표하려는 진영 제목",clickedSide.title)
+            Log.d(" 투표하려는 진영 제목", clickedSide.title)
 
             //실제로 해당 진영에 투표하기
-            ServerUtil.postRequestVote(mContext,clickedSide.id, object : ServerUtil.JsonResponseHandler{
-                override fun onResponse(json: JSONObject) {
+            ServerUtil.postRequestVote(
+                mContext,
+                clickedSide.id,
+                object : ServerUtil.JsonResponseHandler {
+                    override fun onResponse(json: JSONObject) {
 
-                    //서버는 변경된 결과가 어떻게 되는지 다시 내려줌.
-                    //이 응답에서, 토론 진행현황을 다시 파싱해서 화면에 반영
-                    val data = json.getJSONObject("data")
-                    val topicObj = data.getJSONObject("topic")
+                        //서버는 변경된 결과가 어떻게 되는지 다시 내려줌.
+                        //이 응답에서, 토론 진행현황을 다시 파싱해서 화면에 반영
+                        val data = json.getJSONObject("data")
+                        val topicObj = data.getJSONObject("topic")
 
-                    //멤버변수로 있는 토픽을 갈아주자.
-                    mTopic = Topic.getTopicFromJson(topicObj)
-
-
+                        //멤버변수로 있는 토픽을 갈아주자.
+                        mTopic = Topic.getTopicFromJson(topicObj)
 
 
-                    //화면에 mTopic의 데이터를 이용해서 반영
-                    runOnUiThread{
-                        setTopicDataToUi()
+                        //화면에 mTopic의 데이터를 이용해서 반영
+                        runOnUiThread {
+                            setTopicDataToUi()
+                        }
+
                     }
 
-                }
-
-            })
+                })
         }
 
         //두 개의 투표하기 버튼이 눌리면 할 일을 모두 voteCode에 적힌 내용으로 설정.
         voteToFirstSideBtn.setOnClickListener(voteCode)  //이 버튼이 눌리면 할일은 voteCode에 있다.
         voteToSecondSideBtn.setOnClickListener(voteCode)
 
-        }
-
+    }
 
 
     override fun setValues() {
@@ -101,7 +107,7 @@ class ViewTopicDetailActivity : BaseActivity() {
         getTopicDetailFromServer() //코드가 길어서 따로 작업.
 
         //어댑터 초기화 -> 리스트뷰와 연결
-        mReplyAdapter = ReplyAdapter(mContext,R.layout.reply_list_item, mReplyList)
+        mReplyAdapter = ReplyAdapter(mContext, R.layout.reply_list_item, mReplyList)
         replyListView.adapter = mReplyAdapter
     }
 
@@ -126,7 +132,7 @@ class ViewTopicDetailActivity : BaseActivity() {
                     val replies = topicObj.getJSONArray("replies")
 
                     //JSONArray를 하나씩 돌면서 Reply형태로 바꿔서 목록에 추가
-                    for (i in 0 until replies.length()){
+                    for (i in 0 until replies.length()) {
                         mReplyList.add(Reply.getReplyFromJson(replies.getJSONObject(i)))
                     }
 
@@ -147,7 +153,7 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
 
     // 7/22 화면에 mTopic을 기반으로 데이터 반영해주는 기능 (나중에 호출만 할 수 있게)
-    fun setTopicDataToUi(){
+    fun setTopicDataToUi() {
         topicTitleTxt.text = mTopic.title
         Glide.with(mContext).load(mTopic.imageUrl).into(topicImg)
 
@@ -167,21 +173,21 @@ class ViewTopicDetailActivity : BaseActivity() {
         //투표를 한 진영이 몇번째 진영인지를 파약해야함.
 
         //if (mTopic.mySide == null)
-       // if(mTopic.mysideId == -1){
-         if(mTopic.getMySideIndex() == -1){
+        // if(mTopic.mysideId == -1){
+        if (mTopic.getMySideIndex() == -1) {
             //아직 투표 안한 경우
             voteToFirstSideBtn.text = "투표하기"
             voteToSecondSideBtn.text = "투표하기"
-        }else if(mTopic.getMySideIndex() == 0) {
-             //첫 진영에 투표한 경우
-             voteToFirstSideBtn.text = "투표취소"
-             voteToSecondSideBtn.text = "갈아타기"
+        } else if (mTopic.getMySideIndex() == 0) {
+            //첫 진영에 투표한 경우
+            voteToFirstSideBtn.text = "투표취소"
+            voteToSecondSideBtn.text = "갈아타기"
 
-         }else {
-             //두번째 진영에 투표한 경우
-             voteToFirstSideBtn.text = "갈아타기"
-             voteToSecondSideBtn.text = "투표취소"
-         }
+        } else {
+            //두번째 진영에 투표한 경우
+            voteToFirstSideBtn.text = "갈아타기"
+            voteToSecondSideBtn.text = "투표취소"
+        }
 
     }
 
