@@ -22,7 +22,7 @@ class Reply {
 
             //작성자 / 선택진영 => JSONObject를 받아서 곧바로 대임
             r.writer = User.getUserFromJson(json.getJSONObject("user"))
-            r.selectedSide = User.getUserFromJson(json.getJSONObject("selected_side"))
+            r.selectedSide = Side.getSideFromJson(json.getJSONObject("selected_side"))
 
 
             return r
