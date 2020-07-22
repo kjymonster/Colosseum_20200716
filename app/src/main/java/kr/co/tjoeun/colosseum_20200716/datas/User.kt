@@ -13,7 +13,7 @@ class User {
         fun getUserFromJson(json : JSONObject) : User {
             val u = User()
 
-
+            //사용자 정보를 파싱하는 코드
 
             return u
 
