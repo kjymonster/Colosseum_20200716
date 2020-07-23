@@ -77,14 +77,14 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/goodBtn"
+                android:id="@+id/likeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
                 android:text="좋아요가 00" />
 
             <Button
-                android:id="@+id/badBtn"
+                android:id="@+id/dislikeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"

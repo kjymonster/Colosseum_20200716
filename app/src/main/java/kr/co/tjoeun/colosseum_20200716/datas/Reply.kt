@@ -58,7 +58,7 @@ class Reply {
             r.writtenDateTime.add(Calendar.HOUR, timeOffset)
 
 
-            // 좋아요/ 싫어요 /  답글 갯수 실제 파실 저장
+            // 좋아요/ 싫어요 /  답글 갯수 실제 파싱 저장
             r.likeCount = json.getInt("like_count")
             r.dislikeCount = json.getInt("dislike_count")
             r.replyCount = json.getInt("reply_count")
