@@ -6,6 +6,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_edit_reply.*
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
 import kotlinx.android.synthetic.main.activity_view_topic_detail.topicTitleTxt
+import kotlinx.android.synthetic.main.reply_list_item.*
 import kr.co.tjoeun.colosseum_20200716.utils.ServerUtil
 import org.json.JSONObject
 
@@ -26,6 +27,8 @@ class EditReplyActivity :BaseActivity() {
 
 
     override fun setupEvents() {
+
+
 
 
         postBtn.setOnClickListener {

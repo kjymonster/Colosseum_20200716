@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_view_topic_detail.*
+import kotlinx.android.synthetic.main.reply_list_item.*
 import kr.co.tjoeun.colosseum_20200716.adapters.ReplyAdapter
 import kr.co.tjoeun.colosseum_20200716.datas.Reply
 import kr.co.tjoeun.colosseum_20200716.datas.Topic
@@ -43,6 +44,7 @@ class ViewTopicDetailActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
         //투표 버튼까지 만들었으면 여기서 작업.
         //버튼이 눌리면 할 일을 변수에 담아서 저장.
         // (TedPermission에서 권한별 할 일을 변수에 담아서 저장한 것과 같은 논리)
