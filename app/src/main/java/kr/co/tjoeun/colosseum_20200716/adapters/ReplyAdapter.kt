@@ -8,8 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import kr.co.tjoeun.colosseum_20200716.R
 import kr.co.tjoeun.colosseum_20200716.datas.Reply
-import kr.co.tjoeun.colosseum_20200716.datas.Topic
-import java.text.SimpleDateFormat
+import kr.co.tjoeun.colosseum_20200716.utils.TimeUtil
 
 class ReplyAdapter (val mContext: Context,
                     resId : Int,
@@ -40,10 +39,14 @@ class ReplyAdapter (val mContext: Context,
 
         //시간 정보 텍스트뷰 내용 설정 => 방금 전, ?분 전, ?시간 전 등등을 표현
 
-        //날짜 출력 양식용 변수
-        val sdf = SimpleDateFormat("yy-MM-dd a h시 m분")
+        replyWriteTimeTxt.text = TimeUtil.getTimeAgoFromCalendar(data.writtenDateTime)
 
-        replyWriteTimeTxt.text = sdf.format(data.writtenDateTime.time)
+
+
+        //날짜 출력 양식용 변수
+//        val sdf = SimpleDateFormat("yy-MM-dd a h시 m분")
+//
+//        replyWriteTimeTxt.text = sdf.format(data.writtenDateTime.time)
 
 
         return row
