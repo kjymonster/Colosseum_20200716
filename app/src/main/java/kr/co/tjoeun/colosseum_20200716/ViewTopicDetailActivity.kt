@@ -53,6 +53,7 @@ class ViewTopicDetailActivity : BaseActivity() {
             val myIntent = Intent(mContext, EditReplyActivity::class.java)
             myIntent.putExtra("topicTitle", mTopic.title)
             myIntent.putExtra("selectedSideTitle",mTopic.mySide!!.title) //mySide 는 null이 될 가능성을 제거
+            myIntent.putExtra("topicId", mTopicId) //(0723)
             startActivity(myIntent)
         }
 
