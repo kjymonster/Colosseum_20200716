@@ -35,6 +35,13 @@ class ViewTopicDetailActivity : BaseActivity() {
         setValues()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        //서버에서 다시 토론 현황을 불러오자
+        getTopicDetailFromServer()
+    }
+
     override fun setupEvents() {
         //투표 버튼까지 만들었으면 여기서 작업.
         //버튼이 눌리면 할 일을 변수에 담아서 저장.
@@ -114,8 +121,10 @@ class ViewTopicDetailActivity : BaseActivity() {
             Toast.makeText(mContext, "주제 상세 id에 문제가 있습니다.", Toast.LENGTH_SHORT).show()
         }
 
-        //무사히 넘어왔다면, 서버에서 토론 주제에 대한 상제 진행 상황을 가져오기
-        getTopicDetailFromServer() //코드가 길어서 따로 작업.
+//        //무사히 넘어왔다면, 서버에서 토론 주제에 대한 상제 진행 상황을 가져오기
+//        getTopicDetailFromServer() //코드가 길어서 따로 작업.
+        //(0724) onResume에서 토론 진행 현황을 서버에서 받아온다.
+        //기존 서버 호출 코드는 삭제 (주석처리)
 
         //어댑터 초기화 -> 리스트뷰와 연결
         mReplyAdapter = ReplyAdapter(mContext, R.layout.reply_list_item, mReplyList)
@@ -129,6 +138,9 @@ class ViewTopicDetailActivity : BaseActivity() {
             mTopicId,
             object : ServerUtil.JsonResponseHandler {
                 override fun onResponse(json: JSONObject) {
+
+                    //의견 목록을 한번 비웠다가 다시 파싱
+                    mReplyList.clear()
 
                     val data = json.getJSONObject("data")
                     val topicObj = data.getJSONObject("topic")
