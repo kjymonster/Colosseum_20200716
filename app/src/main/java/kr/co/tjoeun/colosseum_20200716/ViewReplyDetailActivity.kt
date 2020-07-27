@@ -5,6 +5,7 @@ import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_view_reply_detail.*
 import kotlinx.android.synthetic.main.activity_view_reply_detail.selectedSideTitleTxt
 import kotlinx.android.synthetic.main.activity_view_reply_detail.writerNicknameTxt
+import kr.co.tjoeun.colosseum_20200716.adapters.ReReplyAdapter
 import kr.co.tjoeun.colosseum_20200716.datas.Reply
 import kr.co.tjoeun.colosseum_20200716.utils.ServerUtil
 import kr.co.tjoeun.colosseum_20200716.utils.TimeUtil
@@ -20,8 +21,11 @@ class ViewReplyDetailActivity : BaseActivity() {
     //var mReply =
     lateinit var mReply: Reply
 
+
     //의견에 달린 답글들을 저장할 목록
     val mReReplyList = ArrayList<Reply>()
+
+    lateinit var mReReplyAdapter : ReReplyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +45,10 @@ class ViewReplyDetailActivity : BaseActivity() {
 
         // 해당 id값에 맞는 의견 정보를 서버에서 다시 불러오자
         getReplyFromServer()
+
+        //대댓글 어댑터 초기화, 리스트뷰 연결
+       mReReplyAdapter = ReReplyAdapter(mContext,R.layout.re_reply_list_item,mReReplyList)
+        reReplyListView.adapter = mReReplyAdapter
     }
 
     //서버에서 의견 정보 불러오기
@@ -78,7 +86,12 @@ class ViewReplyDetailActivity : BaseActivity() {
                                 TimeUtil.getTimeAgoFromCalendar(mReply.writtenDateTime)
                             replyContentTxt.text = mReply.content
 
+                            //답글 목록이 모두 불러지면 새로 반영
+                            mReReplyAdapter.notifyDataSetChanged()
+
                         }
+
+
 
 
                 }
@@ -86,6 +99,5 @@ class ViewReplyDetailActivity : BaseActivity() {
             })
 
     }
-
 
 }
