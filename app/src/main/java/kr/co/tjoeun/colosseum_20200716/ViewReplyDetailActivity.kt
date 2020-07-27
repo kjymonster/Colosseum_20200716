@@ -14,7 +14,7 @@ import org.json.JSONObject
 class ViewReplyDetailActivity : BaseActivity() {
 
     //보려는 의견의 id는 여러 함수에서 공유할 것 같다.
-    //그래서 멤머변수로 만들고 저장한다.
+    //그래서 멤버변수로 만들고 저장한다.
     var mReplyId = 0
 
     //이 화면에서 보여줘야할 의견의 정보를 가진 변수 => 멤버변수로 만들어준다.
@@ -68,7 +68,7 @@ class ViewReplyDetailActivity : BaseActivity() {
                     mReply = Reply.getReplyFromJson(replyObj)
                     //replies JSONArray를 돌면서 => Replay로 변환해서 => mReReplayList에 추가
 
-                    val replies = replyObj.getJSONArray("replise")
+                    val replies = replyObj.getJSONArray("replies")
                     for (i in 0 until replies.length()){
 
                         val reply = Reply.getReplyFromJson(replies.getJSONObject(i))
