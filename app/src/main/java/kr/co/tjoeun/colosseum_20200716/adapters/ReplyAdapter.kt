@@ -136,7 +136,36 @@ class ReplyAdapter(
 
         }
 
+
+        //싫어요 버튼 누르면 => 서버에 전달처리 + (좋아요/싫어요) 갯수 반영 / 토스트로 출력
+        dislikeBtn.setOnClickListener {
+            ServerUtil.postRequestLikeOrDisLike(mContext, data.id,false, object : ServerUtil.JsonResponseHandler{
+                override fun onResponse(json: JSONObject) {
+
+                    val dataObj = json.getJSONObject("data")
+                    val replyObj = dataObj.getJSONObject("reply")
+
+                    val reply = Reply.getReplyFromJson(replyObj)
+
+                    data.dislikeCount = reply.dislikeCount
+
+                    val uiHandler = Handler(Looper.getMainLooper())
+                    uiHandler.post {
+                        notifyDataSetChanged()
+
+                        //서버가 알려주는 메세지를 토스트로 출력
+                        val message = json.getString("message")
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+
+
+                    }
+
+                }
+            })
+
+        }
+
         return row
 
     }
-}
+   }
