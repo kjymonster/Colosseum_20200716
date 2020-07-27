@@ -44,7 +44,7 @@ class ReplyAdapter (val mContext: Context,
         val data = mList[position]
 
         writerNicknameTxt.text = data.writer.nickname
-        selectedSideTitleTxt.text = "(%(data.selectedSide.title))"
+        selectedSideTitleTxt.text = "(%(data.selected_Side.title))"
         contentTxt.text = data.content
 
         //시간 정보 텍스트뷰 내용 설정 => 방금 전, ?분 전, ?시간 전 등등을 표현
