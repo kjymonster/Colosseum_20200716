@@ -107,6 +107,7 @@ class ReplyAdapter(
 
                         //이미 화면에 뿌려져 있는 data의 내용만 교체
                         data.likeCount = reply.likeCount
+                        data.dislikeCount = reply.dislikeCount
 
                         //data의 값이 변경 => 리스트뷰를 구성하는 목록에 변경
                         // => 어댑터.notifyDatasetChanged 실행해야함. (목록의 일부분만 변경되어도)
@@ -148,8 +149,10 @@ class ReplyAdapter(
                     val reply = Reply.getReplyFromJson(replyObj)
 
                     data.dislikeCount = reply.dislikeCount
+                    data.likeCount = reply.likeCount
 
                     val uiHandler = Handler(Looper.getMainLooper())
+
                     uiHandler.post {
                         notifyDataSetChanged()
 
