@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:background="@drawable/red_order_box"
+                android:background="@drawable/gray_border_box"
                 android:textColor="@color/textGray"
                 android:layout_marginRight="5dp"
                 android:text="좋아요가 00" />
@@ -93,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="false"
-                android:background="@drawable/blue_order_box"
+                android:background="@drawable/gray_border_box"
                 android:textColor="@color/textGray"
                 android:text="싫어요 00" />
 
