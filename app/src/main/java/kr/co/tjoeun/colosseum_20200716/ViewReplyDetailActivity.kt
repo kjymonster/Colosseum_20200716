@@ -58,6 +58,11 @@ class ViewReplyDetailActivity : BaseActivity() {
 
                     val message = json.getString("message")
                     Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
+
+                    //입력한 내용을 다시 빈칸으로 돌려주자.
+                    //EditText의 text를 빈칸 ""으로 설정하자. (그냥 하면 타입이 맞지 않음)
+                    //setText를 이용해야함.
+                    contentEdt.setText("")
                 }
                     //의견 상테를 다시 불러내서 -> 답글 목록도 다시 받아내자.
                     getReplyFromServer()
@@ -124,6 +129,12 @@ class ViewReplyDetailActivity : BaseActivity() {
 
                             //답글 목록이 모두 불러지면 새로 반영
                             mReReplyAdapter.notifyDataSetChanged()
+
+                            //리스트뷰의 맨 밑(=마지막 답글)으로 끌어내리기
+                            //마지막 답글 : 목록의 맨 끝 -> 목록의 길이-1 (0부터 시작)
+                            //답글이 10개라면 : 9번이 마지막
+
+                            reReplyListView.smoothScrollToPosition(mReReplyList.size -1)
 
                         }
 
