@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.co.tjoeun.colosseum_20200716.adapters.TopicAdapter
 import kr.co.tjoeun.colosseum_20200716.datas.Topic
@@ -50,6 +51,9 @@ class MainActivity : BaseActivity(){
 
         mTopicAdapter = TopicAdapter(mContext,R.layout.topic_list_item,mTopicList)
         topicListView.adapter = mTopicAdapter
+
+        //BaseActivity가 물려주는 -> 알림버튼을 메인 화면에 보이도록
+        notificationImgBtn.visibility = View.VISIBLE
     }
 
     fun getTopicListFromServer(){  //너무 길어서 setValues밖에서 작업
