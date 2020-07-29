@@ -2,6 +2,7 @@ package kr.co.tjoeun.colosseum_20200716
 
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -17,6 +18,8 @@ abstract class BaseActivity : AppCompatActivity()  {
     //BaseActivity를 상속받는 모든 액티비티들이 => 이 변수들을 상속받게 된다.
 
     lateinit var notificationImgBtn : ImageView
+
+    lateinit var notiCountTxt : TextView
 
     //액션바를 커스텀을 바꿔주는 기능
 
@@ -52,5 +55,6 @@ abstract class BaseActivity : AppCompatActivity()  {
 
         //액션바 XML에 있는 뷰들을 -> 코틀린에서 사용할 수 있도록 연결
         notificationImgBtn = myActionBar.customView.findViewById(R.id.notificationImgBtn)
+        notiCountTxt = myActionBar.customView.findViewById(R.id.notiCountTxt)
     }
 }

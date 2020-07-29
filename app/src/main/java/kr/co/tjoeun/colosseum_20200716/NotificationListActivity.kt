@@ -44,10 +44,12 @@ class NotificationListActivity : BaseActivity() {
             override fun onResponse(json: JSONObject) {
 
                 val data = json.getJSONObject("data")
-                val notifications = data.getJSONObject("notifications")
+                val notifications = data.getJSONArray("notifications")
+
+
 
                 for (i in 0 until notifications.length()) {
-                    //JSONArray 내부의 JSONOnject를 추출해서 NOtification으로 가공해서, mNitifiList에 담자.
+                    //JSONArray 내부의 JSONOnject를 추출해서 Notification으로 가공해서, mNotifiList에 담자.
                     mNotifiList.add(Notification.getNotificationFromJson(notifications.getJSONObject(i)))
 
                 }
