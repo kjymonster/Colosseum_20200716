@@ -27,6 +27,7 @@ abstract class BaseActivity : AppCompatActivity()  {
         supportActionBar?.let {
 
             setCustomActionBar() }
+
     }
 
     fun setCustomActionBar() {
