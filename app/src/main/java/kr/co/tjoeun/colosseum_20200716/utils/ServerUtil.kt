@@ -447,7 +447,7 @@ class ServerUtil {
             //서버에 가지고 갈 짐(데이터들)을 FormBody를 이용해서 담자.
             //POST / PUT / PATCH가 같은 방식을 사용.
             val formData = FormBody.Builder()
-                .add("parent_id", parentReplyId.toString())
+                .add("parent_reply_id", parentReplyId.toString())
                 .add("content", content)
                 .build() //마무리(.build() )
 
