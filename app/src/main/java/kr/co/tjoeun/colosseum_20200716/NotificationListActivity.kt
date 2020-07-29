@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_notification_list.*
 import kr.co.tjoeun.colosseum_20200716.adapters.NotificationAdapter
-import kr.co.tjoeun.colosseum_20200716.adapters.TopicAdapter
 import kr.co.tjoeun.colosseum_20200716.datas.Notification
-import kr.co.tjoeun.colosseum_20200716.datas.Topic
 import kr.co.tjoeun.colosseum_20200716.utils.ServerUtil
 import org.json.JSONObject
 import java.util.ArrayList
@@ -35,6 +33,9 @@ class NotificationListActivity : BaseActivity() {
 
         getNotifiListFromServer()
 
+        mNofiAdapter = NotificationAdapter(mContext, R.layout.notification_list_item,mNotifiList)
+        notiListView.adapter = mNofiAdapter
+
     }
 
     fun getNotifiListFromServer(){
@@ -52,7 +53,7 @@ class NotificationListActivity : BaseActivity() {
                 }
 
                 runOnUiThread{
-                    //어댑터 새로고침
+                   mNofiAdapter.notifyDataSetChanged()
                 }
 
             }
