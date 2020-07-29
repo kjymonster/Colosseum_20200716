@@ -29,6 +29,16 @@ class MainActivity : BaseActivity(){
 
     override fun setupEvents() {
 
+        //알림버튼을 누르면 -> 알림 목록 화면으로 이동
+        notificationImgBtn.setOnClickListener {
+
+            //이미지뷰도 setOnClickListner 설정 가능.
+
+            val myIntent = Intent(mContext,NotificationListActivity::class.java)
+            startActivity(myIntent)
+
+        }
+
         //토론 주제를 누르면 -> 상세화면으로 이동
         topicListView.setOnItemClickListener { parent, view, position, id ->
 
@@ -51,6 +61,7 @@ class MainActivity : BaseActivity(){
 
         mTopicAdapter = TopicAdapter(mContext,R.layout.topic_list_item,mTopicList)
         topicListView.adapter = mTopicAdapter
+
 
         //BaseActivity가 물려주는 -> 알림버튼을 메인 화면에 보이도록
         notificationImgBtn.visibility = View.VISIBLE
